@@ -1,0 +1,17 @@
+# Binarios compilados
+/incident
+*.exe
+bin/
+
+# Tests y cobertura
+coverage.out
+*.test
+
+# Configuración local de Claude Code (personal, no se comparte)
+.claude/settings.local.json
+
+# Archivos de Windows/WSL
+*:Zone.Identifier
+
+# Variables de entorno
+.env
