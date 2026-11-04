@@ -1,6 +1,5 @@
 # Binarios compilados
 /incident
-/main
 *.exe
 bin/
 
