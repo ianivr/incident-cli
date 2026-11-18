@@ -51,3 +51,21 @@ func ParseStatus(s string) (Status, error) {
 func (s Status) IsValid() bool {
 	return s >= StatusOpen && s <= StatusClosed
 }
+
+// MarshalText implements the encoding.TextMarshaler interface for Status. It returns the lowercase name of the status as a byte slice.
+func (s Status) MarshalText() ([]byte, error) {
+	if !s.IsValid() {
+		return nil, fmt.Errorf("%w: %q", ErrInvalidStatus, s)
+	}
+	return []byte(s.String()), nil
+}
+
+// UnmarshalText implements the encoding.TextUnmarshaler interface for Status. It parses a byte slice into a Status value.
+func (s *Status) UnmarshalText(b []byte) error {
+	parsedStatus, err := ParseStatus(string(b))
+	if err != nil {
+		return err
+	}
+	*s = parsedStatus
+	return nil
+}

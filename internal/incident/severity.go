@@ -56,3 +56,21 @@ func ParseSeverity(s string) (Severity, error) {
 func (s Severity) IsValid() bool {
 	return s >= SeverityLow && s <= SeverityCritical
 }
+
+// MarshalText implements the encoding.TextMarshaler interface for Severity. It returns the lowercase name of the severity as a byte slice.
+func (s Severity) MarshalText() ([]byte, error) {
+	if !s.IsValid() {
+		return nil, fmt.Errorf("%w: %q", ErrInvalidSeverity, s)
+	}
+	return []byte(s.String()), nil
+}
+
+// UnmarshalText implements the encoding.TextUnmarshaler interface for Severity. It parses a byte slice into a Severity value, returning an error if the input is invalid.
+func (s *Severity) UnmarshalText(b []byte) error {
+	sev, err := ParseSeverity(string(b))
+	if err != nil {
+		return err
+	}
+	*s = sev
+	return nil
+}

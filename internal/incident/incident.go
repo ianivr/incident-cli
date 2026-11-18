@@ -8,14 +8,14 @@ import (
 
 // Incident represents an incident with its details.
 type Incident struct {
-	ID          int
-	Title       string
-	Description string
-	Severity    Severity
-	Status      Status
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
-	ClosedAt    time.Time
+	ID          int       `json:"id"`
+	Title       string    `json:"title"`
+	Description string    `json:"description,omitempty"`
+	Severity    Severity  `json:"severity"`
+	Status      Status    `json:"status"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
+	ClosedAt    time.Time `json:"closed_at,omitzero"`
 }
 
 // ErrInvalidTitle is returned when an incident is created with an empty title.
